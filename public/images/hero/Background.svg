@@ -1,0 +1,23 @@
+<svg width="1440" height="850" viewBox="0 0 1440 850" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 850H1440V0H0V850Z" fill="url(#paint0_radial_283_2)"/>
+<path d="M0 850H1440V0H0V850Z" fill="url(#paint1_linear_283_2)" fill-opacity="0.86"/>
+<defs>
+<radialGradient id="paint0_radial_283_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(241.551 -168.188) scale(1627.45 1235.07)">
+<stop offset="0.0047" stop-color="#01A0FF"/>
+<stop offset="0.0262" stop-color="#0195ED"/>
+<stop offset="0.0894" stop-color="#0178BF"/>
+<stop offset="0.1582" stop-color="#015D94"/>
+<stop offset="0.2312" stop-color="#004670"/>
+<stop offset="0.3095" stop-color="#003351"/>
+<stop offset="0.3948" stop-color="#002338"/>
+<stop offset="0.4897" stop-color="#001725"/>
+<stop offset="0.5997" stop-color="#000E17"/>
+<stop offset="0.7386" stop-color="#00090F"/>
+<stop offset="1" stop-color="#00080D"/>
+</radialGradient>
+<linearGradient id="paint1_linear_283_2" x1="964" y1="609.5" x2="35.5" y2="-82.5" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>

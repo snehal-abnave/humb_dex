@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Geist", sans-serif !important;
+  }
+}
+
+@layer components {
+  input[type="checkbox"]:checked ~ label span svg {
+    @apply inline-flex;
+  }
+
+  .sticky .header-logo {
+    @apply py-5 lg:py-2;
+  }
+
+  .sticky .menu-scroll.active {
+    @apply opacity-70;
+  }
+
+  input#togglePlan:checked ~ .dot {
+    @apply translate-x-full;
+  }
+
+  input#checkboxLabel:checked ~ .box span {
+    @apply opacity-100;
+  }
+}
+
+.font14to18{
+  font-size: clamp(0.875rem, 0.8024rem + 0.3226vw, 1.125rem);
+}
+.font14to20 {
+    font-size: clamp(0.875rem, 0.7885rem + 0.3846vw, 1.25rem);
+}
+.font14to22{
+  font-size: clamp(0.875rem, 0.7596rem + 0.5128vw, 1.375rem);
+}
+.font20to28 {
+    font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
+}
+
+.font{
+  font-size: clamp(1.875rem, 0.6048rem + 5.6452vw, 6.25rem);
+  line-height: 110px;
+ }
+.font32{
+  font-size: clamp(1.25rem, 1.0323rem + 0.9677vw, 2rem);
+}
+.blue-txt{
+  color: #006167;
+}
+@media(max-width: 768px){
+.font {
+    line-height: 50px;
+}
+.w-100{
+  width: 125px !important;
+}
+.h-100{
+  height: 125px !important;
+}
+.swiper-pagination{
+ 
+}
+}
+
+@media(min-width: 768px){
+  .swiper {
+  padding-bottom: 4rem !important; /* create space for dots */
+}
+.hero{
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+.top7{
+  top: 7rem;
+}
+.font14to16{
+ font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+}
+.font14to18{
+  font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
+}
+.font14to25{
+  font-size: clamp(0.875rem, 0.6754rem + 0.8871vw, 1.5625rem);
+  line-height: 40px;
+}
+}
+@media(min-width: 1200px){
+/* .font20to28 {
+    font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
+} */
+.font20to30{
+  font-size: clamp(1.25rem, 1.1058rem + 0.641vw, 1.875rem);
+  line-height: 40px;
+}
+}
+.info-icon img {
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+}
+.rest-name {
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 75px;
+    color: #006176;
+}
+.swiper-pagination-bullet{
+  width: 20px !important;
+  height: 20px !important;
+  background: #848484 !important;
+}
+.swiper-pagination-bullet-active{
+  background: #006167 !important;
+}
+
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 0; /* ensure it's at the bottom */
+  width: 100%;
+  text-align: center;
+}
+.swiper-pagination {
+  bottom: 0 !important;
+}
