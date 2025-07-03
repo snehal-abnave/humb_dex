@@ -132,3 +132,10 @@
 .swiper-pagination {
   bottom: 0 !important;
 }
+
+.decentralized-txt{
+  font-size: clamp(1.125rem, 1.0385rem + 0.3846vw, 1.5rem);
+  font-weight: 400;
+  text-align: center;
+  line-height: 52px;
+}

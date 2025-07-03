@@ -16,6 +16,7 @@ const Hero = () => {
   /> */}
         <Image
           src="/images/hero/New version copy.png"
+          className="object-cover"
           alt="Hero Background"
           fill
           priority
