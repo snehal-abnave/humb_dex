@@ -40,6 +40,7 @@ module.exports = {
         dark: "#1D2430",
         primary: "#006167",
         yellow: "#FBB040",
+        gray: "#BDBDBD",
         "body-color": "#788293",
         "body-color-dark": "#959CB1",
         "gray-dark": "#000",

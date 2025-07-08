@@ -16,14 +16,16 @@ of 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs o
   },
   {
     title: "2. D’Indra UBUD Resort",
-    subtitle: "Perfect harmony between \n nature, body and soul",
-    description: `Sprawling across 10 acres, this enticing property lies on the banks of the confluenceof 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs of population. When was the last time you were home with nothing on your mind? No deadlines, no bottom-lines, nothing above or below the line. When was the last time you enjoyed a moment of peace, just gazing at the horizon? Or spent a beautiful evening with your family? If you're searching for that elusive feeling called peace of mind, then you'll find yourself at home at SAASHWAT FARM. Sip a cup of morning tea as you hear the birds tweet. Jog past the green landscape. And as you head home, the starlit sky will let you know that you’ve found a home for the mind.`,
+    subtitle: "Rooted in Culture. Designed for Wellness.",
+    description: `d'Indra Ubud Resort – A Sacred Sanctuary of Luxury and Culture
+Nestled among ancient sacred grounds, lush rice paddies, flowing springs, and untouched jungle, d'Indra Ubud Resort is located in the spiritual heart of Kenderan, Bali.
+Thoughtfully designed to honor the legacy of Puri Manuaba leaders and the vibrant local community, the resort reflects the soul of Balinese culture and architecture—preserving tradition while embracing modern luxury.`,
     image: "/images/about/Frame 50.png",
   },
   {
-    title: "3. Dapoli Resort",
-    subtitle: "Perfect harmony between nature, body and soul",
-    description: `Sprawling across 10 acres, this enticing property lies on the banks of the confluenceof 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs of population. When was the last time you were home with nothing on your mind? No deadlines, no bottom-lines, nothing above or below the line. When was the last time you enjoyed a moment of peace, just gazing at the horizon? Or spent a beautiful evening with your family? If you're searching for that elusive feeling called peace of mind, then you'll find yourself at home at SAASHWAT FARM. Sip a cup of morning tea as you hear the birds tweet. Jog past the green landscape. And as you head home, the starlit sky will let you know that you’ve found a home for the mind.`,
+    title: "3. Tattva \n Shore",
+    subtitle: "Invest in Recovery. Own a Piece of Healing.",
+    description: `Introducing an exclusive opportunity to co-own a Vitality Retreat & Rehabilitation Center along the tranquil shoreline near Mumbai. Designed for post-surgical recovery and holistic rejuvenation, this state-of-the-art clinic blends premium healthcare with the serenity of a coastal retreat. Through fractional property ownership, investors can participate in the development and profits of this high-impact wellness asset—while enjoying exclusive owner privileges such as free retreat stays, priority bookings, and wellness perks.`,
     image: "/images/about/Frame 51.png",
   },
 ];
@@ -59,7 +61,7 @@ const Pricing = () => {
                 <div className="text-section flex flex-col gap-6 lg:flex-row">
                   {/* Left Text Section */}
                   <div className="geist-font text-left text-white lg:w-[40%]">
-                    <p className="rest-name text-2xl font-bold text-teal-400">
+                    <p className="rest-name whitespace-pre-line text-2xl font-bold text-teal-400">
                       {property.title}
                     </p>
                     <p className="font20to30 mt-2 whitespace-pre-line text-lg font-semibold text-dark dark:text-white md:mt-8">

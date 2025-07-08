@@ -2,7 +2,12 @@ import React from "react";
 
 const AboutSectionThree = () => {
   return (
-    <section className="container bg-black py-12">
+    <section
+      className="container bg-black py-12"
+      style={{
+        backgroundImage: `url('/images/about/Frame 93.svg')`,
+      }}
+    >
       <img
         src="/images/about/Frame 77.svg"
         className="m-auto mb-4 w-full md:w-[30%]"
@@ -14,20 +19,20 @@ const AboutSectionThree = () => {
           alt="center-img"
         />
 
-        <div>
-          <p>
-            <span className="text-dark">Mission Statement </span> - Mission
-            Statement - At HUMB Assets, our mission is to transform healthcare
-            infrastructure into fractional revenue-sharing digital tokens,
-            empowering individuals and institutions to invest in real-world
-            assets through a decentralized platform that ensures trust,
-            transparency, and passive income generation.
+        <div className="line-42 text-center capitalize md:mx-auto md:w-[95%]">
+          <p className="font16to24 py-8">
+            <span className="font20to36 text-primary">Mission Statement </span>{" "}
+            - Mission Statement - At HUMB Assets, our mission is to transform
+            healthcare infrastructure into fractional revenue-sharing digital
+            tokens, empowering individuals and institutions to invest in
+            real-world assets through a decentralized platform that ensures
+            trust, transparency, and passive income generation.
           </p>
-          <p>
-            <span className="text-dark">Vision Statement </span>- To democratize
-            access to income-generating healthcare assets by leveraging
-            blockchain technology, enabling secure, transparent, and inclusive
-            investment opportunities for a global community.
+          <p className="font16to24">
+            <span className="font20to36 text-primary">Vision Statement </span>-
+            To democratize access to income-generating healthcare assets by
+            leveraging blockchain technology, enabling secure, transparent, and
+            inclusive investment opportunities for a global community.
           </p>
         </div>
       </div>

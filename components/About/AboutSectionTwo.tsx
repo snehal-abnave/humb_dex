@@ -11,8 +11,8 @@ const AboutSectionTwo = () => {
       <div className="flex flex-wrap justify-center gap-6">
         <img src="/images/about/Frame 96.svg" alt="center-img" />
 
-        <div className="mt-8">
-          <p className="decentralized-txt w-full md:w-[90%]">
+        <div className="mt-8 capitalize">
+          <p className="decentralized-txt w-full md:mx-auto md:w-[90%]">
             HUMB Assets is a{" "}
             <span className="text-primary">Decentralized Platform </span> that
             makes investing in healthcare simple, secure, and accessible. We

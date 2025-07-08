@@ -44,7 +44,12 @@
 .font20to28 {
     font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
 }
-
+.font16to24{
+  font-size: clamp(1rem, 0.8333rem + 0.7407vw, 1.5rem);
+}
+.font20to36{
+  font-size: clamp(1.25rem, 0.9167rem + 1.4815vw, 2.25rem);
+}
 .font{
   font-size: clamp(1.875rem, 0.6048rem + 5.6452vw, 6.25rem);
   line-height: 110px;
@@ -91,6 +96,9 @@
 .font14to25{
   font-size: clamp(0.875rem, 0.6754rem + 0.8871vw, 1.5625rem);
   line-height: 40px;
+}
+.line-42{
+  line-height: 42px;
 }
 }
 @media(min-width: 1200px){

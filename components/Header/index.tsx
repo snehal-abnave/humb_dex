@@ -162,13 +162,13 @@ const Header = () => {
             </div>
              <div className="flex items-center justify-end pr-16 lg:pr-0 gap-[1rem] mr-4">
                 <Link
-                  href="https://app.humb.io/register"
+                  href="/signup"
                   className="font14to16 hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 text-center dark:text-primary w-[145px] md:block border border-[#006176] rounded-[50px]"
                 >
                   Register
                 </Link>
                 <Link
-                  href="https://app.humb.io/login"
+                  href="/signin"
                   className="font14to16 ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-[50px] w-[145px] text-center bg-primary px-7 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
                 >
                  Login
