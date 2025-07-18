@@ -168,7 +168,7 @@ const Header = () => {
                   Register
                 </Link>
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="font14to16 ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-[50px] w-[145px] text-center bg-primary px-7 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
                 >
                  Login

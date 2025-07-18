@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -10,26 +9,23 @@ const imageList = [
   "/images/login/Component 1.svg",
   "/images/login/Component 3.svg",
 ];
-const SignupPage = () => {
+
+const SigninPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
-  // Image slider
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageList.length);
     }, 3000);
+
     return () => clearInterval(interval);
   }, []);
 
-  // Handle form data changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -38,48 +34,37 @@ const SignupPage = () => {
     }));
   };
 
-  // Form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (formData.password !== formData.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  try {
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      }),
-    });
+      const data = await response.json();
 
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("Registration successful!");
-      // Optionally redirect after signup
-      // router.push("/login");
-    } else {
-      alert(data.message || "Registration failed!");
+      if (response.ok) {
+        alert("Login successful!");
+        // localStorage.setItem("token", data.token); // if token is returned
+        // router.push("/dashboard"); // if using useRouter
+      } else {
+        alert(data.message || "Login failed!");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again.");
     }
-  } catch (error) {
-    console.error("Registration error:", error);
-    alert("Something went wrong. Please try again.");
-  }
-};
+  };
 
   return (
     <>
       <section className="login-wrapper overflow-hidden">
         <div className="flex items-center">
-          {/* 🔁 Sliding Image */}
           <div>
             <Image
               src={imageList[currentImageIndex]}
@@ -87,7 +72,7 @@ const handleSubmit = async (e) => {
               width={800}
               height={600}
               className="hidden h-full w-full lg:block"
-              priority // only if this is above the fold
+              priority
             />
           </div>
 
@@ -102,8 +87,8 @@ const handleSubmit = async (e) => {
               </p>
 
               <form onSubmit={handleSubmit}>
-                <div>
-                  <div>
+                <div className="border-light border-radius-8">
+                  <div className="border-radius-8">
                     <input
                       type="email"
                       name="email"
@@ -111,13 +96,14 @@ const handleSubmit = async (e) => {
                       onChange={handleChange}
                       placeholder="Email Address"
                       required
-                      className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      className="border-bottom-left border-bottom-right border-radius-8 w-full bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none lg:w-[100%]"
                     />
                   </div>
 
-                  <div>
-                    {/* Password Field */}
-                    <div className="relative w-full lg:w-[100%]">
+                  <div className="border-bottom horizontal "></div>
+
+                  <div className="border-radius-8">
+                    <div className="border-radius-8 relative w-full lg:w-[100%]">
                       <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -125,7 +111,7 @@ const handleSubmit = async (e) => {
                         onChange={handleChange}
                         placeholder="Enter Your Password"
                         required
-                        className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-top-left border-top-right border-radius-8 w-full bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
                       <button
                         type="button"
@@ -140,50 +126,39 @@ const handleSubmit = async (e) => {
                       </button>
                     </div>
                   </div>
+                </div>
 
-                  {/* Confirm Password Field */}
+                <div className="mb-4" />
+                <div className="mb-6">
+                  <button
+                    type="submit"
+                    className="border-radius-8 flex w-full items-center justify-center bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark lg:w-[100%]"
+                  >
+                    Log In
+                  </button>
+                </div>
+
+                <div className="mb-4 flex flex-col justify-between sm:flex-row sm:items-center">
                   <div>
-                    <div className="relative mb-4 w-full lg:w-[100%]">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        placeholder="Confirm your Password"
-                        required
-                        className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        className="text-gray-500 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer focus:outline-none"
-                      >
-                        {showConfirmPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
+                    <a
+                      href="/forgot-password"
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      Forgot Password?
+                    </a>
                   </div>
                 </div>
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark lg:w-[100%]"
-                >
-                  Sign Up
-                </button>
               </form>
 
-              <div className="my-4 flex items-center justify-center lg:w-[100%]">
+              <div className="mb-4 flex items-center justify-center lg:w-[100%]">
                 <span className="hidden h-[1px] w-full max-w-[250px] bg-body-color/50 sm:block"></span>
                 <p className="w-full text-center text-base font-medium text-body-color">
                   Or
                 </p>
                 <span className="hidden h-[1px] w-full max-w-[250px] bg-body-color/50 sm:block"></span>
               </div>
-              <button className="border-light mb-6 flex w-full items-center justify-center rounded-md rounded-sm px-6 py-3 text-base text-body-color outline-none transition-all duration-300 lg:w-[100%]">
+
+              <button className="border-light border-radius-8 mb-6 flex w-full items-center justify-center rounded-md px-6 py-3 text-base text-body-color outline-none transition-all duration-300 lg:w-[100%]">
                 <span className="mr-3">
                   <svg
                     width="20"
@@ -217,12 +192,13 @@ const handleSubmit = async (e) => {
                     </defs>
                   </svg>
                 </span>
-                Sign Up With Google
+                Continue With Google
               </button>
+
               <p className="text-base font-medium text-body-color">
-                Already have any account ?{" "}
-                <Link href="/login" className="text-primary hover:underline">
-                  Log In
+                Don’t Have Any Account ?{" "}
+                <Link href="/signup" className="text-primary hover:underline">
+                  Signup Now
                 </Link>
               </p>
             </div>
@@ -233,4 +209,4 @@ const handleSubmit = async (e) => {
   );
 };
 
-export default SignupPage;
+export default SigninPage;

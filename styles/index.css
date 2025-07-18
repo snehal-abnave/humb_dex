@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -32,104 +32,102 @@
   }
 }
 
-.font14to18{
+.font14to18 {
   font-size: clamp(0.875rem, 0.8024rem + 0.3226vw, 1.125rem);
 }
 .font14to20 {
-    font-size: clamp(0.875rem, 0.7885rem + 0.3846vw, 1.25rem);
+  font-size: clamp(0.875rem, 0.7885rem + 0.3846vw, 1.25rem);
 }
-.font14to22{
+.font14to22 {
   font-size: clamp(0.875rem, 0.7596rem + 0.5128vw, 1.375rem);
 }
 .font20to28 {
-    font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
+  font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
 }
-.font16to24{
+.font16to24 {
   font-size: clamp(1rem, 0.8333rem + 0.7407vw, 1.5rem);
 }
-.font20to36{
+.font20to36 {
   font-size: clamp(1.25rem, 0.9167rem + 1.4815vw, 2.25rem);
 }
-.font{
+.font {
   font-size: clamp(1.875rem, 0.6048rem + 5.6452vw, 6.25rem);
   line-height: 110px;
- }
-.font32{
+}
+.font32 {
   font-size: clamp(1.25rem, 1.0323rem + 0.9677vw, 2rem);
 }
-.blue-txt{
+.blue-txt {
   color: #006167;
 }
-@media(max-width: 768px){
-.font {
+@media (max-width: 768px) {
+  .font {
     line-height: 50px;
-}
-.w-100{
-  width: 125px !important;
-}
-.h-100{
-  height: 125px !important;
-}
-.swiper-pagination{
- 
-}
+  }
+  .w-100 {
+    width: 125px !important;
+  }
+  .h-100 {
+    height: 125px !important;
+  }
+  .swiper-pagination {
+  }
 }
 
-@media(min-width: 768px){
+@media (min-width: 768px) {
   .swiper {
-  padding-bottom: 4rem !important; /* create space for dots */
-}
-.hero{
+    padding-bottom: 4rem !important; /* create space for dots */
+  }
+  .hero {
     justify-content: center;
     align-items: center;
     background-repeat: no-repeat;
+  }
+  .top7 {
+    top: 7rem;
+  }
+  .font14to16 {
+    font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+  }
+  .font14to18 {
+    font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
+  }
+  .font14to25 {
+    font-size: clamp(0.875rem, 0.6754rem + 0.8871vw, 1.5625rem);
+    line-height: 40px;
+  }
+  .line-42 {
+    line-height: 42px;
+  }
 }
-.top7{
-  top: 7rem;
-}
-.font14to16{
- font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
-}
-.font14to18{
-  font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
-}
-.font14to25{
-  font-size: clamp(0.875rem, 0.6754rem + 0.8871vw, 1.5625rem);
-  line-height: 40px;
-}
-.line-42{
-  line-height: 42px;
-}
-}
-@media(min-width: 1200px){
-/* .font20to28 {
+@media (min-width: 1200px) {
+  /* .font20to28 {
     font-size: clamp(1.125rem, 1.0673rem + 0.2564vw, 1.375rem) !important;
 } */
-.font20to30{
-  font-size: clamp(1.25rem, 1.1058rem + 0.641vw, 1.875rem);
-  line-height: 40px;
-}
+  .font20to30 {
+    font-size: clamp(1.25rem, 1.1058rem + 0.641vw, 1.875rem);
+    line-height: 40px;
+  }
 }
 .info-icon img {
-    width: 80%;
-    max-width: 400px;
-    height: auto;
+  width: 80%;
+  max-width: 400px;
+  height: auto;
 }
 .rest-name {
-    font-weight: 700;
-    font-size: 60px;
-    line-height: 75px;
-    color: #006176;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 75px;
+  color: #006176;
 }
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
   width: 20px !important;
   height: 20px !important;
   background: #848484 !important;
 }
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background: #006167 !important;
 }
-
 
 .swiper-pagination {
   position: absolute;
@@ -141,9 +139,35 @@
   bottom: 0 !important;
 }
 
-.decentralized-txt{
+.decentralized-txt {
   font-size: clamp(1.125rem, 1.0385rem + 0.3846vw, 1.5rem);
   font-weight: 400;
   text-align: center;
   line-height: 52px;
+}
+.border-light {
+  background: #1a1919;
+  border: 1px solid #343434 !important;
+}
+.border-radius-8 {
+  border-radius: 8px;
+}
+.horizontal {
+  width: 95%;
+  margin: auto;
+  border: 1px solid #343434;
+}
+.border-bottom-left {
+  border-bottom-left-radius: 0 !important;
+}
+
+.border-bottom-right {
+  border-bottom-right-radius: 0 !important;
+}
+.border-top-left {
+  border-top-left-radius: 0 !important;
+}
+
+.border-top-right {
+  border-top-right-radius: 0 !important;
 }
