@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 const Video = () => {
   const steps = [
@@ -14,7 +15,7 @@ const Video = () => {
     <>
       <div className="container text-center">
         <div>
-          <img
+          <Image
             src="/images/about/Frame 27.svg"
             alt="how-it-works"
             className="m-auto mb-4 w-full md:w-[25%]"

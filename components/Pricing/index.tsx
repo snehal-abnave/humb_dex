@@ -37,7 +37,7 @@ const Pricing = () => {
   return (
     <>
       <section className="relative z-10 bg-gray-light pb-16 dark:bg-bg-color-dark md:pb-20 lg:pb-28">
-        <img
+        <Image
           src="/images/about/Frame 24.svg"
           alt=""
           className="m-auto mb-4 w-full md:w-[40%]"

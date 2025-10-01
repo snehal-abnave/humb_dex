@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 const Features = () => {
   return (
@@ -5,7 +6,7 @@ const Features = () => {
       <section id="features" className="py-16 md:py-20 lg:py-16">
         <div className="container text-center">
           <div className="text-center">
-            <img src="/images/about/Frame 28 (2).svg" alt="about" className="m-auto w-full md:w-[40%] mb-4" loading="lazy" />
+            <Image src="/images/about/Frame 28 (2).svg" alt="about" className="m-auto w-full md:w-[40%] mb-4" loading="lazy" />
 
           </div>
           <div className="w-full md:w-[80%] m-auto mb-3">

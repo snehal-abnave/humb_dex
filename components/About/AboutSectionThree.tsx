@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const AboutSectionThree = () => {
   return (
@@ -8,13 +9,13 @@ const AboutSectionThree = () => {
         backgroundImage: `url('/images/about/Frame 93.svg')`,
       }}
     >
-      <img
+      <Image
         src="/images/about/Frame 77.svg"
         className="m-auto mb-4 w-full md:w-[30%]"
         alt="heading"
       />
       <div className="flex flex-wrap justify-center gap-6">
-        <img
+        <Image
           src="images/about/businessman-clicks-virtual-screen-mission.svg"
           alt="center-img"
         />

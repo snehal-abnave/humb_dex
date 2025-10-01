@@ -1,15 +1,16 @@
 import React from "react";
+import Image from "next/image";
 
 const AboutSectionTwo = () => {
   return (
     <section className="container bg-black py-12">
-      <img
+      <Image
         src="/images/about/Frame 55.svg"
         className="m-auto mb-4 w-full md:w-[30%]"
         alt="heading"
       />
       <div className="flex flex-wrap justify-center gap-6">
-        <img src="/images/about/Frame 96.svg" alt="center-img" />
+        <Image src="/images/about/Frame 96.svg" alt="center-img" />
 
         <div className="mt-8 capitalize">
           <p className="decentralized-txt w-full md:mx-auto md:w-[90%]">
