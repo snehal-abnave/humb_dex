@@ -4,7 +4,7 @@ const Testimonials = () => {
   return (
     <>
       <section className="relative z-10 bg-gray-light py-16 dark:bg-bg-color-dark md:py-20 lg:py-16">
-        <Image
+        <img
           src="/images/about/Frame 28 (1).svg"
           alt="why-choose"
           className="m-auto mb-4 w-full md:w-[40%]"
@@ -40,7 +40,7 @@ const Testimonials = () => {
                 </ul>
               </div>
               <div className="info-icon">
-                <Image
+                <img
                   src="/images/about/Question Mark.svg"
                   alt="Question Mark"
                 />

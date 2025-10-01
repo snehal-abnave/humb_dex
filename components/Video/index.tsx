@@ -15,7 +15,7 @@ const Video = () => {
     <>
       <div className="container text-center">
         <div>
-          <Image
+          <img
             src="/images/about/Frame 27.svg"
             alt="how-it-works"
             className="m-auto mb-4 w-full md:w-[25%]"
