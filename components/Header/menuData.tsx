@@ -15,15 +15,16 @@ const menuData: Menu[] = [
   },
   {
     id: 33,
-    title: "Resources",
+    title: "Blog",
     path: "/blog",
     newTab: false,
   },
   {
     id: 3,
-    title: "About HUMB",
-    path: "/contact",
-    newTab: false,
+    title: "HUMB",
+    path: "https://humb.io/",
+    newTab: true,
   },
+  
 ];
 export default menuData;

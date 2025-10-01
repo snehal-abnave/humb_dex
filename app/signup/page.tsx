@@ -1,27 +1,63 @@
 "use client";
 import Image from "next/image";
-
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import * as yup from "yup";
+
+// Define types
+type FormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 const imageList = [
-  "/images/login/Component 2.svg",
   "/images/login/Component 1.svg",
+  "/images/login/Component 2.svg",
   "/images/login/Component 3.svg",
 ];
+
+// Yup validation schema
+const validationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .trim()
+    .required("Email is required.")
+    .email("Please enter a valid email address."),
+  password: yup
+    .string()
+    .trim()
+    .required("Password is required.")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
+      "Password must be at least 8 characters and include uppercase, lowercase, number, and a special character."
+    ),
+  confirmPassword: yup
+    .string()
+    .trim()
+    .required("Confirm Password is required.")
+    .oneOf([yup.ref("password")], "Passwords do not match."),
+});
+
 const SignupPage = () => {
+  const router = useRouter();
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  // Image slider
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto Image Slider
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageList.length);
@@ -29,207 +65,180 @@ const SignupPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Handle form data changes
-  const handleChange = (e) => {
+  // Input handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (formData.password !== formData.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("Registration successful!");
-      // Optionally redirect after signup
-      // router.push("/login");
-    } else {
-      alert(data.message || "Registration failed!");
+  // Check if form is valid for enabling button
+  const isFormValid = async () => {
+    try {
+      await validationSchema.validate(formData, { abortEarly: false });
+      return true;
+    } catch {
+      return false;
     }
-  } catch (error) {
-    console.error("Registration error:", error);
-    alert("Something went wrong. Please try again.");
-  }
-};
+  };
+
+  // Form submit handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage("");
+
+    try {
+      const trimmedData = {
+        email: formData.email.trim(),
+        password: formData.password.trim(),
+        confirmPassword: formData.confirmPassword.trim(),
+      };
+
+      await validationSchema.validate(trimmedData, { abortEarly: true });
+
+      setIsSubmitting(true);
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(trimmedData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setErrorMessage("Registration successful! Redirecting...");
+        setTimeout(() => router.push("/login"), 1500);
+      } else {
+        setErrorMessage(data.message || "Registration failed.");
+      }
+    } catch (err: any) {
+      if (err.name === "ValidationError") {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <>
-      <section className="login-wrapper overflow-hidden">
-        <div className="flex items-center">
-          {/* 🔁 Sliding Image */}
-          <div>
-            <Image
-              src={imageList[currentImageIndex]}
-              alt="login-slider"
-              width={800}
-              height={600}
-              className="hidden h-full w-full lg:block"
-              priority // only if this is above the fold
-            />
-          </div>
-
-          <div className="rounded bg-white px-8 pt-[5rem] shadow-three dark:bg-black sm:p-[38px] lg:mx-auto lg:w-[35%] lg:px-4">
-            <div>
-              <h3 className="mb-3 text-2xl font-semibold text-black dark:text-white sm:text-3xl">
-                <span className="text-primary"> Welcome to HUMB</span> RWA
-              </h3>
-              <p className="mb-4 text-base font-normal text-gray lg:w-[100%]">
-                Securely access the future of healthcare investments — buy and
-                trade crypto-backed medical assets with confidence.
-              </p>
-
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email Address"
-                      required
-                      className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                    />
-                  </div>
-
-                  <div>
-                    {/* Password Field */}
-                    <div className="relative w-full lg:w-[100%]">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Enter Your Password"
-                        required
-                        className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword((prev) => !prev)}
-                        className="text-gray-500 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer focus:outline-none"
-                      >
-                        {showPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirm Password Field */}
-                  <div>
-                    <div className="relative mb-4 w-full lg:w-[100%]">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        placeholder="Confirm your Password"
-                        required
-                        className="border-light w-full rounded-sm border-stroke bg-[#f8f8f8] px-6 py-3 pr-12 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#1A1919] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        className="text-gray-500 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer focus:outline-none"
-                      >
-                        {showConfirmPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark lg:w-[100%]"
-                >
-                  Sign Up
-                </button>
-              </form>
-
-              <div className="my-4 flex items-center justify-center lg:w-[100%]">
-                <span className="hidden h-[1px] w-full max-w-[250px] bg-body-color/50 sm:block"></span>
-                <p className="w-full text-center text-base font-medium text-body-color">
-                  Or
-                </p>
-                <span className="hidden h-[1px] w-full max-w-[250px] bg-body-color/50 sm:block"></span>
-              </div>
-              <button className="border-light mb-6 flex w-full items-center justify-center rounded-md rounded-sm px-6 py-3 text-base text-body-color outline-none transition-all duration-300 lg:w-[100%]">
-                <span className="mr-3">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clipPath="url(#clip0_95:967)">
-                      <path
-                        d="M20.0001 10.2216C20.0122 9.53416 19.9397 8.84776 19.7844 8.17725H10.2042V11.8883H15.8277C15.7211 12.539 15.4814 13.1618 15.1229 13.7194C14.7644 14.2769 14.2946 14.7577 13.7416 15.1327L13.722 15.257L16.7512 17.5567L16.961 17.5772C18.8883 15.8328 19.9997 13.266 19.9997 10.2216"
-                        fill="#4285F4"
-                      />
-                      <path
-                        d="M10.2042 20.0001C12.9592 20.0001 15.2721 19.1111 16.9616 17.5778L13.7416 15.1332C12.88 15.7223 11.7235 16.1334 10.2042 16.1334C8.91385 16.126 7.65863 15.7206 6.61663 14.9747C5.57464 14.2287 4.79879 13.1802 4.39915 11.9778L4.27957 11.9878L1.12973 14.3766L1.08856 14.4888C1.93689 16.1457 3.23879 17.5387 4.84869 18.512C6.45859 19.4852 8.31301 20.0005 10.2046 20.0001"
-                        fill="#34A853"
-                      />
-                      <path
-                        d="M4.39911 11.9777C4.17592 11.3411 4.06075 10.673 4.05819 9.99996C4.0623 9.32799 4.17322 8.66075 4.38696 8.02225L4.38127 7.88968L1.19282 5.4624L1.08852 5.51101C0.372885 6.90343 0.00012207 8.4408 0.00012207 9.99987C0.00012207 11.5589 0.372885 13.0963 1.08852 14.4887L4.39911 11.9777Z"
-                        fill="#FBBC05"
-                      />
-                      <path
-                        d="M10.2042 3.86663C11.6663 3.84438 13.0804 4.37803 14.1498 5.35558L17.0296 2.59996C15.1826 0.901848 12.7366 -0.0298855 10.2042 -3.6784e-05C8.3126 -0.000477834 6.45819 0.514732 4.8483 1.48798C3.2384 2.46124 1.93649 3.85416 1.08813 5.51101L4.38775 8.02225C4.79132 6.82005 5.56974 5.77231 6.61327 5.02675C7.6568 4.28118 8.91279 3.87541 10.2042 3.86663Z"
-                        fill="#EB4335"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_95:967">
-                        <rect width="20" height="20" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </span>
-                Sign Up With Google
-              </button>
-              <p className="text-base font-medium text-body-color">
-                Already have any account ?{" "}
-                <Link href="/login" className="text-primary hover:underline">
-                  Log In
-                </Link>
-              </p>
-            </div>
-          </div>
+    <section className="login-wrapper overflow-hidden">
+      <div className="flex items-center">
+        {/* Sliding Image */}
+        <div>
+          <Image
+            src={imageList[currentImageIndex]}
+            alt="login-slider"
+            width={800}
+            height={600}
+            className="hidden h-full w-full lg:block"
+            priority
+          />
         </div>
-      </section>
-    </>
+
+        {/* Signup Form */}
+        <div className="rounded bg-white px-8 pt-[5rem] shadow-three dark:bg-black sm:p-[38px] lg:mx-auto lg:w-[35%] lg:px-4">
+          <h3 className="mb-3 text-2xl font-semibold text-black dark:text-white sm:text-3xl">
+            <span className="text-primary">Welcome to HUMB</span> RWA
+          </h3>
+          <p className="mb-4 text-base text-gray">
+            Securely access the future of healthcare investments — buy and trade
+            crypto-backed medical assets with confidence.
+          </p>
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email Address"
+                className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary"
+              />
+            </div>
+
+            <div className="mb-4 relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter Your Password"
+                className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color pr-12 outline-none focus:border-primary"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-3.5 text-gray-500"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+
+            <div className="mb-4 relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Your Password"
+                className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color pr-12 outline-none focus:border-primary"
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+                className="absolute right-4 top-3.5 text-gray-500"
+              >
+                {showConfirmPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+
+            {/* General error message shown here */}
+            {errorMessage && (
+              <p
+                className={`text-sm mb-3 ${
+                  errorMessage.includes("successful")
+                    ? "text-green-600"
+                    : "text-red-500"
+                }`}
+              >
+                {errorMessage}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full py-3 rounded-sm font-medium text-white ${
+                !isSubmitting
+                  ? "bg-primary hover:bg-primary/90"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              {isSubmitting ? "Submitting..." : "Sign Up"}
+            </button>
+          </form>
+
+          <p className="mt-4 text-sm text-body-color">
+            Already have an account?{" "}
+            <Link href="/login" className="text-primary hover:underline">
+              Log In
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 

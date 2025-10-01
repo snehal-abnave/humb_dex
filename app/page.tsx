@@ -7,7 +7,7 @@ import Video from "@/components/Video";
 import { Metadata } from "next";
 // _app.js or _app.tsx
 import "swiper/css";
-
+import { Toaster } from "react-hot-toast";
 export const metadata: Metadata = {
   title: "Property Dex",
   description: "This is Home for Startup Nextjs Template",
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+    <Toaster position="top-right" />
       <ScrollUp />
       <Hero />
       <Features />

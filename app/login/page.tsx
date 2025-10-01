@@ -3,16 +3,30 @@ import Image from "next/image";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import * as Yup from "yup";
+import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
+// Image slider images
 const imageList = [
   "/images/login/Component 2.svg",
   "/images/login/Component 1.svg",
   "/images/login/Component 3.svg",
 ];
 
+// Yup validation schema
+const loginSchema = Yup.object().shape({
+  email: Yup.string().email().required(),
+  password: Yup.string().min(8).required(),
+});
+
 const SigninPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,7 +36,6 @@ const SigninPage = () => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageList.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -36,33 +49,48 @@ const SigninPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
+    // 1. Validate using Yup
+    try {
+      await loginSchema.validate(formData);
+    } catch {
+      setError("Invalid email or password");
+      return;
+    }
+
+    // 2. Submit to backend
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
 
       if (response.ok) {
-        alert("Login successful!");
-        // localStorage.setItem("token", data.token); // if token is returned
-        // router.push("/dashboard"); // if using useRouter
+        toast.success("Login successful!");
+        setTimeout(() => {
+          router.push("/");
+        }, 1500);
       } else {
-        alert(data.message || "Login failed!");
+        setError(data.message || "Invalid email or password");
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong. Please try again.");
     }
   };
 
   return (
     <>
+      <Toaster position="top-center" />
       <section className="login-wrapper overflow-hidden">
         <div className="flex items-center">
           <div>
@@ -128,8 +156,14 @@ const SigninPage = () => {
                   </div>
                 </div>
 
-                <div className="mb-4" />
-                <div className="mb-6">
+                {/* ✅ Show one combined error message above login button */}
+                {error && (
+                  <p className="mt-4 rounded border border-red-300 bg-red-50 p-2 text-sm text-red-600">
+                    {error}
+                  </p>
+                )}
+
+                <div className="mb-6 mt-6">
                   <button
                     type="submit"
                     className="border-radius-8 flex w-full items-center justify-center bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark lg:w-[100%]"
@@ -159,39 +193,7 @@ const SigninPage = () => {
               </div>
 
               <button className="border-light border-radius-8 mb-6 flex w-full items-center justify-center rounded-md px-6 py-3 text-base text-body-color outline-none transition-all duration-300 lg:w-[100%]">
-                <span className="mr-3">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clipPath="url(#clip0_95:967)">
-                      <path
-                        d="M20.0001 10.2216C20.0122 9.53416 19.9397 8.84776 19.7844 8.17725H10.2042V11.8883H15.8277C15.7211 12.539 15.4814 13.1618 15.1229 13.7194C14.7644 14.2769 14.2946 14.7577 13.7416 15.1327L13.722 15.257L16.7512 17.5567L16.961 17.5772C18.8883 15.8328 19.9997 13.266 19.9997 10.2216"
-                        fill="#4285F4"
-                      />
-                      <path
-                        d="M10.2042 20.0001C12.9592 20.0001 15.2721 19.1111 16.9616 17.5778L13.7416 15.1332C12.88 15.7223 11.7235 16.1334 10.2042 16.1334C8.91385 16.126 7.65863 15.7206 6.61663 14.9747C5.57464 14.2287 4.79879 13.1802 4.39915 11.9778L4.27957 11.9878L1.12973 14.3766L1.08856 14.4888C1.93689 16.1457 3.23879 17.5387 4.84869 18.512C6.45859 19.4852 8.31301 20.0005 10.2046 20.0001"
-                        fill="#34A853"
-                      />
-                      <path
-                        d="M4.39911 11.9777C4.17592 11.3411 4.06075 10.673 4.05819 9.99996C4.0623 9.32799 4.17322 8.66075 4.38696 8.02225L4.38127 7.88968L1.19282 5.4624L1.08852 5.51101C0.372885 6.90343 0.00012207 8.4408 0.00012207 9.99987C0.00012207 11.5589 0.372885 13.0963 1.08852 14.4887L4.39911 11.9777Z"
-                        fill="#FBBC05"
-                      />
-                      <path
-                        d="M10.2042 3.86663C11.6663 3.84438 13.0804 4.37803 14.1498 5.35558L17.0296 2.59996C15.1826 0.901848 12.7366 -0.0298855 10.2042 -3.6784e-05C8.3126 -0.000477834 6.45819 0.514732 4.8483 1.48798C3.2384 2.46124 1.93649 3.85416 1.08813 5.51101L4.38775 8.02225C4.79132 6.82005 5.56974 5.77231 6.61327 5.02675C7.6568 4.28118 8.91279 3.87541 10.2042 3.86663Z"
-                        fill="#EB4335"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_95:967">
-                        <rect width="20" height="20" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </span>
+                <span className="mr-3">{/* Google Icon SVG */}</span>
                 Continue With Google
               </button>
 
