@@ -3,18 +3,18 @@
 import Image from 'next/image';
 
 const OurPropertiesData = [
+   {
+    title: '1. D’Indra UBUD Resort',
+    subtitle: 'Perfect harmony between nature, body and soul',
+    description: `Sprawling across 10 acres, this enticing property lies on the banks of the confluenceof 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs of population. When was the last time you were home with nothing on your mind? No deadlines, no bottom-lines, nothing above or below the line. When was the last time you enjoyed a moment of peace, just gazing at the horizon? Or spent a beautiful evening with your family? If you're searching for that elusive feeling called peace of mind, then you'll find yourself at home at SAASHWAT FARM. Sip a cup of morning tea as you hear the birds tweet. Jog past the green landscape. And as you head home, the starlit sky will let you know that you’ve found a home for the mind.`,
+    image: '/images/about/Frame 50.png',
+  },
   {
-    title: '1. Saashwat Farm',
+    title: '2. Saashwat Farm',
     subtitle: 'Divine Riverside Abode in the City of Chiplun',
     description: `Sprawling across 10 acres, this enticing property lies on the banks of the confluence
 of 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs of population. When was the last time you were home with nothing on your mind? No deadlines, no bottom-lines, nothing above or below the line. When was the last time you enjoyed a moment of peace, just gazing at the horizon? Or spent a beautiful evening with your family? If you're searching for that elusive feeling called peace of mind, then you'll find yourself at home at SAASHWAT FARM. Sip a cup of morning tea as you hear the birds tweet. Jog past the green landscape. And as you head home, the starlit sky will let you know that you’ve found a home for the mind.`,
     image: '/images/about/Frame 49.svg',
-  },
-  {
-    title: '2. D’Indra UBUD Resort',
-    subtitle: 'Perfect harmony between nature, body and soul',
-    description: `Sprawling across 10 acres, this enticing property lies on the banks of the confluenceof 2 rivers, Koyna & Vashishti, in the forested city of Chiplun with 2.5 Lakhs of population. When was the last time you were home with nothing on your mind? No deadlines, no bottom-lines, nothing above or below the line. When was the last time you enjoyed a moment of peace, just gazing at the horizon? Or spent a beautiful evening with your family? If you're searching for that elusive feeling called peace of mind, then you'll find yourself at home at SAASHWAT FARM. Sip a cup of morning tea as you hear the birds tweet. Jog past the green landscape. And as you head home, the starlit sky will let you know that you’ve found a home for the mind.`,
-    image: '/images/about/Frame 50.png',
   },
   {
     title: '3. Dapoli Resort',
