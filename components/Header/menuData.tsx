@@ -22,7 +22,7 @@ const menuData: Menu[] = [
   {
     id: 3,
     title: "HUMB",
-    path: "https://corptesthumb.com/",
+    path: "https://humb.io/",
     newTab: true,
   },
 ];

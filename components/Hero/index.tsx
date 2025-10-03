@@ -24,8 +24,19 @@ const Hero = () => {
             Welcome To
             <br /> HUMB Property DEX
           </h1>
-          <p className="font32 px-6 py-2 font-medium">
-            Where Real Estate Meets The Future
+          <div className="my-3 flex justify-center">
+            <a
+              href="https://dindrainternational.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font14to16 ease-in-up rounded-[50px] bg-primary px-7 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:px-9 lg:px-9"
+            >
+              Join Dindra Token Presale
+            </a>
+          </div>
+          <p className="font14to22 px-6 py-2 font-semibold">
+            Limited presale access to tokenised real estate assets. Join the
+            Dindra Token presale before the window closes.
           </p>
         </div>
       </section>
